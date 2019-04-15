@@ -3,7 +3,6 @@
 namespace app\validators;
 
 use yii\validators\Validator;
-use app\models\ContactForm;
 
 class PhoneValidator extends Validator {
 
