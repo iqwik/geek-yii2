@@ -7,6 +7,7 @@
 use yii\helpers\Html;
 use yii\bootstrap\ActiveForm;
 use yii\captcha\Captcha;
+use yii\widgets\MaskedInput;
 
 $this->title = 'Contact';
 $this->params['breadcrumbs'][] = $this->title;
@@ -44,6 +45,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 <?php $form = ActiveForm::begin(['id' => 'contact-form']); ?>
 
                     <?= $form->field($model, 'name')->textInput(['autofocus' => true]) ?>
+
+                    <?= $form->field($model, 'phone')->widget(MaskedInput::className(),['mask'=>'+7-999-999-99-99'])->textInput(['placeholder'=>'+7-XXX-XXX-XX-XX']); ?>
 
                     <?= $form->field($model, 'email') ?>
 
