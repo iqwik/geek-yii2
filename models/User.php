@@ -28,8 +28,6 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
-        //self::$users = self::getUsers();
-        //foreach (self::$users as $user) {
         if($user = Users::findOne(['accessToken' => $token])){
             return new static($user->toArray());
         }
