@@ -19,8 +19,8 @@ class m190424_192917_create_tasks_table extends Migration
             'author_id' => $this->integer(4)->notNull(),
             'responsible_id' => $this->integer(4)->notNull(),
             'deadline' => $this->dateTime(),
-            'status_id' => $this->integer(4)->notNull()
-        ]);
+            'status_id' => $this->integer(4)->defaultValue(0)
+        ], "DEFAULT CHARSET=utf8mb4");
 
         $this->createIndex('fk_tasks_users_author_idx', '{{%tasks}}', 'author_id');
         $this->addForeignKey(
