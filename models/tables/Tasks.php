@@ -51,12 +51,12 @@ class Tasks extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'title' => 'Title',
-            'text' => 'Text',
-            'author_id' => 'Author ID',
-            'responsible_id' => 'Responsible ID',
+            'title' => 'Заголовок',
+            'text' => 'Текст задачи',
+            'author_id' => 'Автор',
+            'responsible_id' => 'Исполнитель',
             'deadline' => 'Deadline',
-            'status_id' => 'Status ID',
+            'status_id' => 'Статус Задачи',
         ];
     }
 
