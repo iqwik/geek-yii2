@@ -14,11 +14,11 @@ class m190420_110249_insert_to_users extends Migration
     {
         $this->batchInsert(
             'users',
-            ['username','password','authKey','accessToken','role_id'],
+            ['username','password','authKey','accessToken'],
             [
-                ['admin','admin','test1key','1-token',99],
-                ['manager','123456','test2key','2-token',2],
-                ['demo','demo','test3key','3-token',1]
+                ['admin','admin','test1key','1-token'],
+                ['manager','manager','test2key','2-token'],
+                ['demo','demo','test3key','3-token']
             ]
         );
     }
@@ -32,11 +32,11 @@ class m190420_110249_insert_to_users extends Migration
             'roles',
             [
                 'in',
-                ['username','password','authKey','accessToken','role_id'],
+                ['username','password','authKey','accessToken'],
                 [
-                    ['admin','admin','test1key','1-token',99],
-                    ['manager','123456','test2key','2-token',2],
-                    ['demo','demo','test3key','3-token',1]
+                    ['admin','admin','test1key','1-token'],
+                    ['manager','manager','test2key','2-token'],
+                    ['demo','demo','test3key','3-token']
                 ]
             ]);
     }

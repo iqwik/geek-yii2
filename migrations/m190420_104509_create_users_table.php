@@ -17,8 +17,7 @@ class m190420_104509_create_users_table extends Migration
             'username' => $this->string(20)->notNull(),
             'password' => $this->string(32)->notNull(),
             'authKey' => $this->string(32)->notNull(),
-            'accessToken' => $this->string(32)->notNull(),
-            'role_id' => $this->integer(2)->defaultValue(1),
+            'accessToken' => $this->string(32)->notNull()
         ], "DEFAULT CHARSET=utf8mb4");
     }
 
