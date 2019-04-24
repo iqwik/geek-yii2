@@ -13,7 +13,7 @@ class m190420_110249_insert_to_users extends Migration
     public function up()
     {
         $this->batchInsert(
-            'users',
+            '{{%users}}',
             ['username','password','authKey','accessToken'],
             [
                 ['admin','admin','test1key','1-token'],
@@ -29,7 +29,7 @@ class m190420_110249_insert_to_users extends Migration
     public function down()
     {
         $this->delete(
-            'roles',
+            '{{%users}}',
             [
                 'in',
                 ['username','password','authKey','accessToken'],
