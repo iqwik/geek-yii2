@@ -43,9 +43,11 @@ class TasksFilter extends Tasks
         $query = Tasks::find();
 
         // add conditions that should always apply here
-
         $dataProvider = new ActiveDataProvider([
-            'query' => $query,
+            'query' => $query->orderBy('status_id ASC, id DESC'),
+            'pagination' => [
+                'pageSize' => 9,
+            ],
         ]);
 
         $this->load($params);

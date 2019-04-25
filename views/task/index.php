@@ -11,7 +11,6 @@ $this->title = 'Tasks';
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tasks-index">
-
     <h1><?= Html::encode($this->title) ?></h1>
 
     <p>
@@ -20,23 +19,21 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+    <div class="container">
 
-            'id',
-            'title',
-            'text',
-            'author_id',
-            'responsible_id',
-            //'deadline',
-            //'status_id',
-
-            ['class' => 'yii\grid\ActionColumn'],
-        ],
-    ]); ?>
-
-
+        <?= \yii\widgets\ListView::widget([
+            'dataProvider' => $dataProvider,
+            'itemView' => '_list',
+            'itemOptions' => [
+                'tag' => 'div',
+                'class' => 'col-md-4 col-sm-6 col-xs-12',
+            ],
+            'layout' => "{items}\n{pager}",
+            'options' => [
+                'tag' => 'div',
+                'class' => 'row list-view',
+            ],
+        ]);
+        ?>
+    </div>
 </div>

@@ -50,7 +50,7 @@ class Tasks extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
+            'id' => 'Номер Задачи',
             'title' => 'Заголовок',
             'text' => 'Текст задачи',
             'author_id' => 'Автор',

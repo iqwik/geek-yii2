@@ -113,3 +113,12 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+.task_item {
+    background: #f0f0f0;
+    text-align: center;
+    margin: 10px;
+}
+.task_item h3 {
+    margin: 0;
+    padding: 5px 0;
+}
