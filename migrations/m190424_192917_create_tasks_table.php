@@ -18,8 +18,8 @@ class m190424_192917_create_tasks_table extends Migration
             'text' => $this->string(255)->notNull(),
             'author_id' => $this->integer(4)->notNull(),
             'responsible_id' => $this->integer(4)->notNull(),
-            'deadline' => $this->dateTime(),
-            'status_id' => $this->integer(4)->defaultValue(0)
+            'deadline' => $this->date(),
+            'status_id' => $this->integer(4)->defaultValue(1)
         ], "DEFAULT CHARSET=utf8mb4");
 
         $this->createIndex('fk_tasks_users_author_idx', '{{%tasks}}', 'author_id');

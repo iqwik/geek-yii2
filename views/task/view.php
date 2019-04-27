@@ -7,37 +7,29 @@ use yii\widgets\DetailView;
 /* @var $model app\models\tables\Tasks */
 
 $this->title = $model->title;
-$this->params['breadcrumbs'][] = ['label' => 'Tasks', 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => 'Задачи', 'url' => ['index']];
 $this->params['breadcrumbs'][] = $this->title;
 
 \yii\web\YiiAsset::register($this);
 ?>
 <div class="tasks-view">
-
+    <mark>Задача №<?= Html::encode($model->id) ?></mark>
     <h1><?= Html::encode($this->title) ?></h1>
-
+    <ul class="list-group">
+        <li class="list-group-item"><small>Описание:</small> <?= Html::encode($model->text) ?></li>
+        <li class="list-group-item"><small>Исполнитель:</small> <?= Html::encode($model->responsible->username) ?></li>
+        <li class="list-group-item"><small>Автор:</small> <?= Html::encode($model->author->username) ?></li>
+        <li class="list-group-item"><small>Статус:</small> <?= Html::encode($model->status->title) ?></li>
+        <li class="list-group-item"><small>Дата сдачи:</small> <?= Yii::$app->formatter->asDatetime($model->deadline,  'php:d.m.Y'); ?></li>
+    </ul>
     <p>
-        <?= Html::a('Edit', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Delete', ['delete', 'id' => $model->id], [
+        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
-                'confirm' => 'Are you sure you want to delete this item?',
+                'confirm' => 'Вы действительно хотите удалить задачу?',
                 'method' => 'post',
             ],
         ]) ?>
     </p>
-
-    <?= DetailView::widget([
-        'model' => $model,
-        'attributes' => [
-            'id',
-            'title',
-            'text',
-            'author_id',
-            'responsible_id',
-            'deadline',
-            'status_id',
-        ],
-    ]) ?>
-
 </div>

@@ -8,6 +8,8 @@ use app\models\filters\TasksFilter;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\tables\Users;
+use app\models\tables\Status;
 
 /**
  * TaskController implements the CRUD actions for Tasks model.
@@ -21,7 +23,7 @@ class TaskController extends Controller
     {
         return [
             'verbs' => [
-                'class' => VerbFilter::className(),
+                'class' => VerbFilter::class,
                 'actions' => [
                     'delete' => ['POST'],
                 ],
@@ -53,7 +55,7 @@ class TaskController extends Controller
     public function actionView($id)
     {
         return $this->render('view', [
-            'model' => $this->findModel($id),
+            'model' => $this->findModel($id)
         ]);
     }
 
@@ -72,6 +74,8 @@ class TaskController extends Controller
 
         return $this->render('create', [
             'model' => $model,
+            'usersList' => $this->usersList(),
+            'status' => $this->statusList()
         ]);
     }
 
@@ -92,6 +96,8 @@ class TaskController extends Controller
 
         return $this->render('update', [
             'model' => $model,
+            'usersList' => $this->usersList(),
+            'status' => $this->statusList()
         ]);
     }
 
@@ -124,4 +130,21 @@ class TaskController extends Controller
 
         throw new NotFoundHttpException('The requested page does not exist.');
     }
+
+    protected function usersList()
+    {
+        return Users::find()
+                    ->select('username')
+                    ->indexBy('id')
+                    ->column();
+    }
+
+    protected function statusList()
+    {
+        return Status::find()
+                    ->select('title')
+                    ->indexBy('id')
+                    ->column();
+    }
+
 }

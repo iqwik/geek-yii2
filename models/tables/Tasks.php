@@ -39,8 +39,8 @@ class Tasks extends \yii\db\ActiveRecord
             [['deadline'], 'safe'],
             [['title'], 'string', 'max' => 150],
             [['text'], 'string', 'max' => 255],
-            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['responsible_id' => 'id']],
-            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['author_id' => 'id']],
+            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['responsible_id' => 'id']],
+            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['author_id' => 'id']],
         ];
     }
 
@@ -65,7 +65,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getResponsible()
     {
-        return $this->hasOne(Users::className(), ['id' => 'responsible_id']);
+        return $this->hasOne(Users::class, ['id' => 'responsible_id']);
     }
 
     /**
@@ -73,6 +73,11 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getAuthor()
     {
-        return $this->hasOne(Users::className(), ['id' => 'author_id']);
+        return $this->hasOne(Users::class, ['id' => 'author_id']);
+    }
+
+    public function getStatus()
+    {
+        return $this->hasOne(Status::class, ['id' => 'status_id']);
     }
 }
