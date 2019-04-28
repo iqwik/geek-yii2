@@ -6,8 +6,6 @@ use yii\helpers\Html;
 /* @var $searchModel app\models\filters\TasksFilter */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = 'Задачи';
-$this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="tasks-index">
     <h1><?= Html::encode($this->title) ?></h1>
@@ -26,13 +24,10 @@ $this->params['breadcrumbs'][] = $this->title;
             },
             'itemOptions' => [
                 'tag' => 'div',
-                'class' => 'col-md-4 col-sm-6 col-xs-12',
+                'class' => 'col-md-4 col-sm-6 col-xs-12 row',
             ],
-            'layout' => "{items}\n{pager}",
-            'options' => [
-                'tag' => 'div',
-                'class' => 'row list-view',
-            ],
+            'summary' => "Показано: {count} из {totalCount}",
+            'layout' => "{summary}<div class='row list-view'>{items}</div>{pager}"
         ]);
         ?>
     </div>

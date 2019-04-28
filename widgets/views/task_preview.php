@@ -10,7 +10,7 @@ $this->title = $model->title;
 
 \yii\web\YiiAsset::register($this);
 ?>
-<a class="task_item" href="<?= Url::to(['view', 'id' => $model->id]) ?>">
+<a class="task_item" href="<?= Url::to(['one', 'id' => $model->id]) ?>">
     <h3><?=Html::encode($model->title) ?></h3>
     <p><?=Html::encode($model->text);?></p>
     <p><?=Html::encode($model->responsible->username);?></p>

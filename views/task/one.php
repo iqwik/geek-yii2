@@ -15,7 +15,13 @@ $this->params['breadcrumbs'][] = $this->title;
 <div class="tasks-view">
     <mark>Задача №<?= Html::encode($model->id) ?></mark>
     <h1><?= Html::encode($this->title) ?></h1>
-    <ul class="list-group">
+
+    <?= $this->render('_form', [
+        'model' => $model,
+        'usersList' => $usersList,
+        'status' => $status
+    ]) ?>
+    <!--ul class="list-group">
         <li class="list-group-item"><small>Описание:</small> <?= Html::encode($model->text) ?></li>
         <li class="list-group-item"><small>Исполнитель:</small> <?= Html::encode($model->responsible->username) ?></li>
         <li class="list-group-item"><small>Автор:</small> <?= Html::encode($model->author->username) ?></li>
@@ -23,13 +29,13 @@ $this->params['breadcrumbs'][] = $this->title;
         <li class="list-group-item"><small>Дата сдачи:</small> <?= Yii::$app->formatter->asDatetime($model->deadline,  'php:d.m.Y'); ?></li>
     </ul>
     <p>
-        <?= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
+        <?/*= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
         <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Вы действительно хотите удалить задачу?',
                 'method' => 'post',
             ],
-        ]) ?>
-    </p>
+        ])*/ ?>
+    </p-->
 </div>
