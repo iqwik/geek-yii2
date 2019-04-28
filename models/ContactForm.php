@@ -4,7 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
-use app\validators\PhoneValidator;
+use app\components\PhoneValidator;
 
 /**
  * ContactForm is the model behind the contact form.

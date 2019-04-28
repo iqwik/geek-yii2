@@ -1,6 +1,6 @@
 <?php
 
-namespace app\validators;
+namespace app\components;
 use yii\validators\Validator;
 
 class PhoneValidator extends Validator {

@@ -2,6 +2,7 @@
 
 namespace app\controllers;
 
+use app\components\EventSendMessage;
 use Yii;
 use app\models\tables\Tasks;
 use app\models\filters\TasksFilter;
@@ -16,6 +17,7 @@ use app\models\tables\Status;
  */
 class TaskController extends Controller
 {
+    const EVENT_TASK_CREATED = 'event-task-created';
     /**
      * {@inheritdoc}
      */
@@ -69,7 +71,12 @@ class TaskController extends Controller
         $model = new Tasks();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            $this->sendMail($model->responsible_id);
+
+            Yii::$app->on( self::EVENT_TASK_CREATED, function ( EventSendMessage $event ) {
+                $event->send();
+            } );
+            Yii::$app->trigger( self::EVENT_TASK_CREATED, new EventSendMessage (['id' => $model->responsible_id]) );
+
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -146,25 +153,5 @@ class TaskController extends Controller
                     ->select('title')
                     ->indexBy('id')
                     ->column();
-    }
-
-    protected function sendMail($id)
-    {
-        $email = Users::find()
-            ->select('email')
-            ->where(['id' => $id])
-            ->indexBy('id')
-            ->one()
-            ->email;
-
-        $mailer = Yii::$app->mailer;
-        $mailer->useFileTransport = true;
-        $mailer->compose()
-            ->setTo($email)
-            ->setFrom(['admin@admin.ru' => 'Admin'])
-            ->setSubject('Новая задача')
-            ->setTextBody('test')
-            ->send();
-        return true;
     }
 }
