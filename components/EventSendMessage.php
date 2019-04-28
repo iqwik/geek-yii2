@@ -2,35 +2,34 @@
 
 namespace app\components;
 
-use Yii;
+use yii\base\Component;
 use yii\base\Event;
-use app\models\tables\Users;
+use app\models\tables\Tasks;
 
-class EventSendMessage extends Event
+class EventSendMessage extends Component
 {
-    public $id;
-
-    public function send()
-    {
-        $mailer = Yii::$app->mailer;
-        $mailer->useFileTransport = true;
-
-        $mailer->compose()
-               ->setTo($this->email())
-               ->setFrom([Yii::$app->params['adminEmail'] => 'Administrator'])
-               ->setSubject('Новая задача')
-               ->setTextBody('На Вас назначена новая задача')
-               ->send();
-        return true;
+    public function init(){
+        $this->eventSendMessage();
     }
 
-    protected function email()
+    private function eventSendMessage()
     {
-        return Users::find()
-                    ->select('email')
-                    ->where(['id' => $this->id])
-                    ->indexBy('id')
-                    ->one()
-                    ->email;
+        Event::on( Tasks::class, Tasks::EVENT_AFTER_INSERT, function($event)
+        {
+
+            $task = $event->sender;
+            $app = \Yii::$app;
+
+            $body = "Здравствуйте {$task->responsible->username},\n\n 
+            На Вас назначена новая задача, <a href='http://yii.loc/?r=task%2Fview&id={$task->id}'>перейти</a>";
+
+            $app->mailer->compose()
+                        ->setTo($task->responsible->email)
+                        ->setFrom([$app->params['adminEmail'] => 'Administrator'])
+                        ->setSubject('Новая Задача')
+                        ->setTextBody($body)
+                        ->send();
+            return true;
+        });
     }
 }

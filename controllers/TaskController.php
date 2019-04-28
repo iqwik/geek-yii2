@@ -71,12 +71,6 @@ class TaskController extends Controller
         $model = new Tasks();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-
-            Yii::$app->on( self::EVENT_TASK_CREATED, function ( EventSendMessage $event ) {
-                $event->send();
-            } );
-            Yii::$app->trigger( self::EVENT_TASK_CREATED, new EventSendMessage (['id' => $model->responsible_id]) );
-
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
