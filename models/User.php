@@ -9,6 +9,7 @@ class User extends \yii\base\BaseObject implements \yii\web\IdentityInterface
     public $id;
     public $username;
     public $password;
+    public $email;
     public $authKey;
     public $accessToken;
 

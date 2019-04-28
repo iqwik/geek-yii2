@@ -76,6 +76,9 @@ class Tasks extends \yii\db\ActiveRecord
         return $this->hasOne(Users::class, ['id' => 'author_id']);
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getStatus()
     {
         return $this->hasOne(Status::class, ['id' => 'status_id']);

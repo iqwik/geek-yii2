@@ -69,6 +69,7 @@ class TaskController extends Controller
         $model = new Tasks();
 
         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+            $this->sendMail($model->responsible_id);
             return $this->redirect(['view', 'id' => $model->id]);
         }
 
@@ -147,4 +148,23 @@ class TaskController extends Controller
                     ->column();
     }
 
+    protected function sendMail($id)
+    {
+        $email = Users::find()
+            ->select('email')
+            ->where(['id' => $id])
+            ->indexBy('id')
+            ->one()
+            ->email;
+
+        $mailer = Yii::$app->mailer;
+        $mailer->useFileTransport = true;
+        $mailer->compose()
+            ->setTo($email)
+            ->setFrom(['admin@admin.ru' => 'Admin'])
+            ->setSubject('Новая задача')
+            ->setTextBody('test')
+            ->send();
+        return true;
+    }
 }

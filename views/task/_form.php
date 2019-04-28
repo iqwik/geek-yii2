@@ -1,10 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\helpers\ArrayHelper;
 use yii\widgets\ActiveForm;
-use app\models\tables\Users;
-use app\models\tables\Status;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */

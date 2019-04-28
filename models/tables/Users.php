@@ -10,6 +10,7 @@ use Yii;
  * @property int $id
  * @property string $username
  * @property string $password
+ * @property string $email
  * @property string $authKey
  * @property string $accessToken
  * @property int $role_id
@@ -30,9 +31,9 @@ class Users extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['username', 'password', 'authKey', 'accessToken'], 'required'],
+            [['username', 'password', 'email', 'authKey', 'accessToken'], 'required'],
             [['username'], 'string', 'max' => 20],
-            [['password', 'authKey', 'accessToken'], 'string', 'max' => 32],
+            [['password', 'email', 'authKey', 'accessToken'], 'string', 'max' => 32],
         ];
     }
 
@@ -45,6 +46,7 @@ class Users extends \yii\db\ActiveRecord
             'id' => 'ID',
             'username' => 'Username',
             'password' => 'Password',
+            'email'=> 'Email',
             'authKey' => 'Auth Key',
             'accessToken' => 'Access Token',
         ];
