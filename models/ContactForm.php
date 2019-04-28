@@ -4,7 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\base\Model;
-use app\validators\PhoneValidator;
+use app\components\PhoneValidator;
 
 /**
  * ContactForm is the model behind the contact form.
@@ -28,7 +28,7 @@ class ContactForm extends Model
             // name, email, subject and body are required
             [['name', 'email', 'subject', 'body'], 'required'],
             // phone validate
-            [['phone'], PhoneValidator::className()],
+            [['phone'], PhoneValidator::class],
             // email has to be a valid email address
             ['email', 'email'],
             // verifyCode needs to be entered correctly

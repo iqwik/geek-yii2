@@ -3,6 +3,9 @@
 namespace app\models\tables;
 
 use Yii;
+use yii\db\ActiveRecord;
+use yii\db\BaseActiveRecord;
+use yii\behaviors\TimestampBehavior;
 
 /**
  * This is the model class for table "tasks".
@@ -18,7 +21,7 @@ use Yii;
  * @property Users $responsible
  * @property Users $author
  */
-class Tasks extends \yii\db\ActiveRecord
+class Tasks extends ActiveRecord
 {
     /**
      * {@inheritdoc}
@@ -37,10 +40,29 @@ class Tasks extends \yii\db\ActiveRecord
             [['title', 'text', 'author_id', 'responsible_id', 'status_id'], 'required'],
             [['author_id', 'responsible_id', 'status_id'], 'integer'],
             [['deadline'], 'safe'],
+            [['date_create'], 'safe'],
+            [['date_update'], 'safe'],
             [['title'], 'string', 'max' => 150],
             [['text'], 'string', 'max' => 255],
-            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['responsible_id' => 'id']],
-            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::className(), 'targetAttribute' => ['author_id' => 'id']],
+            [['responsible_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['responsible_id' => 'id']],
+            [['author_id'], 'exist', 'skipOnError' => true, 'targetClass' => Users::class, 'targetAttribute' => ['author_id' => 'id']],
+        ];
+    }
+
+    public function behaviors()
+    {
+        return [
+            'timestamp' => [
+                'class' => TimestampBehavior::class,
+                'attributes' => [
+                    BaseActiveRecord::EVENT_BEFORE_INSERT => ['date_create'],
+                    BaseActiveRecord::EVENT_BEFORE_UPDATE => ['date_update'],
+
+                ],
+                'value' => function(){
+                    return gmdate("Y-m-d H:i:s");
+                },
+            ],
         ];
     }
 
@@ -50,13 +72,15 @@ class Tasks extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => 'ID',
-            'title' => 'Title',
-            'text' => 'Text',
-            'author_id' => 'Author ID',
-            'responsible_id' => 'Responsible ID',
+            'id' => 'Номер Задачи',
+            'title' => 'Заголовок',
+            'text' => 'Текст задачи',
+            'author_id' => 'Автор',
+            'responsible_id' => 'Исполнитель',
             'deadline' => 'Deadline',
-            'status_id' => 'Status ID',
+            'date_create' => 'Дата создания',
+            'date_update' => 'Дата обновления',
+            'status_id' => 'Статус Задачи',
         ];
     }
 
@@ -65,7 +89,7 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getResponsible()
     {
-        return $this->hasOne(Users::className(), ['id' => 'responsible_id']);
+        return $this->hasOne(Users::class, ['id' => 'responsible_id']);
     }
 
     /**
@@ -73,6 +97,14 @@ class Tasks extends \yii\db\ActiveRecord
      */
     public function getAuthor()
     {
-        return $this->hasOne(Users::className(), ['id' => 'author_id']);
+        return $this->hasOne(Users::class, ['id' => 'author_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getStatus()
+    {
+        return $this->hasOne(Status::class, ['id' => 'status_id']);
     }
 }
