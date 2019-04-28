@@ -21,16 +21,8 @@ $this->params['breadcrumbs'][] = $this->title;
         'usersList' => $usersList,
         'status' => $status
     ]) ?>
-    <!--ul class="list-group">
-        <li class="list-group-item"><small>Описание:</small> <?= Html::encode($model->text) ?></li>
-        <li class="list-group-item"><small>Исполнитель:</small> <?= Html::encode($model->responsible->username) ?></li>
-        <li class="list-group-item"><small>Автор:</small> <?= Html::encode($model->author->username) ?></li>
-        <li class="list-group-item"><small>Статус:</small> <?= Html::encode($model->status->title) ?></li>
-        <li class="list-group-item"><small>Дата сдачи:</small> <?= Yii::$app->formatter->asDatetime($model->deadline,  'php:d.m.Y'); ?></li>
-    </ul>
-    <p>
-        <?/*= Html::a('Изменить', ['update', 'id' => $model->id], ['class' => 'btn btn-primary']) ?>
-        <?= Html::a('Удалить', ['delete', 'id' => $model->id], [
+    <!--p>
+        <?/*= Html::a('Удалить', ['delete', 'id' => $model->id], [
             'class' => 'btn btn-danger',
             'data' => [
                 'confirm' => 'Вы действительно хотите удалить задачу?',

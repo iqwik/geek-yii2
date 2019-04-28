@@ -27,7 +27,10 @@ use yii\helpers\Html;
                 'class' => 'col-md-4 col-sm-6 col-xs-12 row',
             ],
             'summary' => "Показано: {count} из {totalCount}",
-            'layout' => "{summary}<div class='row list-view'>{items}</div>{pager}"
+            'layout' => "<div class='small'>{summary}</div><div class='list-view row'>{items}</div>{pager}",
+            'options' => [
+                'class' => 'list-view row'
+            ]
         ]);
         ?>
     </div>
