@@ -19,6 +19,8 @@ class m190424_192917_create_tasks_table extends Migration
             'author_id' => $this->integer(4)->notNull(),
             'responsible_id' => $this->integer(4)->notNull(),
             'deadline' => $this->date(),
+            'date_create' => $this->dateTime(),
+            'date_update' => $this->dateTime(),
             'status_id' => $this->integer(4)->defaultValue(1)
         ], "DEFAULT CHARSET=utf8mb4");
 

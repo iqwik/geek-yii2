@@ -14,7 +14,6 @@ $this->params['breadcrumbs'][] = 'Редактировать';
 
     <h1><?= Html::encode($this->title) ?></h1>
 
-    <pre><?var_dump($model);?></pre>
     <?= $this->render('_form', [
         'model' => $model,
         'usersList' => $usersList,
