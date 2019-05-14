@@ -14,7 +14,7 @@ use yii\helpers\Html;
         <?= Html::a('Новая задача', ['create'], ['class' => 'btn btn-success']) ?>
     </p>
 
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
+    <?php //echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <div class="container">
         <?=\yii\widgets\ListView::widget([

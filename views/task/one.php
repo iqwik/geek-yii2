@@ -1,7 +1,6 @@
 <?php
 
 use yii\helpers\Html;
-use yii\widgets\DetailView;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
@@ -21,13 +20,4 @@ $this->params['breadcrumbs'][] = $this->title;
         'usersList' => $usersList,
         'status' => $status
     ]) ?>
-    <!--p>
-        <?/*= Html::a('Удалить', ['delete', 'id' => $model->id], [
-            'class' => 'btn btn-danger',
-            'data' => [
-                'confirm' => 'Вы действительно хотите удалить задачу?',
-                'method' => 'post',
-            ],
-        ])*/ ?>
-    </p-->
 </div>
