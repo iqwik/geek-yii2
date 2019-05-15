@@ -3,6 +3,7 @@
 namespace app\models\filters;
 
 use yii\base\Model;
+use yii\caching\DbDependency;
 use yii\data\ActiveDataProvider;
 use app\models\tables\Tasks;
 
@@ -54,6 +55,23 @@ class TasksFilter extends Tasks
 
         $query->andFilterWhere(['like', 'deadline', $this->deadline]);
 
+        $cache = \Yii::$app->cache;
+        foreach($dataProvider->getKeys() as $k) {
+            $key = 'cacheDataProvider_'.$k;
+
+            if (!$dataProvider = $cache->get($key)) {
+                $dependency = new DbDependency();
+                $dependency->sql = "SELECT COUNT(id) FROM tasks";
+
+                $dataProvider = new ActiveDataProvider([
+                    'query' => $query->orderBy('status_id ASC, id DESC'),
+                    'pagination' => [
+                        'pageSize' => 9,
+                    ],
+                ]);
+                $cache->set($key, $dataProvider, 3600, $dependency);
+            }
+        }
         return $dataProvider;
     }
 }
