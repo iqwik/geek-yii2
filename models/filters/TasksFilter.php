@@ -55,6 +55,10 @@ class TasksFilter extends Tasks
 
         $query->andFilterWhere(['=', 'MONTH(deadline)', $this->deadline]);
 
+        \Yii::$app->db->cache(function () use ($dataProvider){
+            return $dataProvider->prepare();
+        });
+
         return $dataProvider;
     }
 }
