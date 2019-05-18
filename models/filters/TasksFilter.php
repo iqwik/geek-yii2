@@ -53,25 +53,8 @@ class TasksFilter extends Tasks
             return $dataProvider;
         }
 
-        $query->andFilterWhere(['like', 'deadline', $this->deadline]);
+        $query->andFilterWhere(['=', 'MONTH(deadline)', $this->deadline]);
 
-        $cache = \Yii::$app->cache;
-        foreach($dataProvider->getKeys() as $k) {
-            $key = 'cacheDataProvider_'.$k;
-
-            if (!$dataProvider = $cache->get($key)) {
-                $dependency = new DbDependency();
-                $dependency->sql = "SELECT COUNT(id) FROM tasks";
-
-                $dataProvider = new ActiveDataProvider([
-                    'query' => $query->orderBy('status_id ASC, id DESC'),
-                    'pagination' => [
-                        'pageSize' => 9,
-                    ],
-                ]);
-                $cache->set($key, $dataProvider, 3600, $dependency);
-            }
-        }
         return $dataProvider;
     }
 }
