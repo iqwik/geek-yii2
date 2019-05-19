@@ -3,6 +3,7 @@
 namespace app\models\filters;
 
 use yii\base\Model;
+use yii\caching\DbDependency;
 use yii\data\ActiveDataProvider;
 use app\models\tables\Tasks;
 
@@ -17,8 +18,7 @@ class TasksFilter extends Tasks
     public function rules()
     {
         return [
-            [['id', 'author_id', 'responsible_id', 'status_id'], 'integer'],
-            [['title', 'text', 'deadline'], 'safe'],
+            [['deadline'], 'safe'],
         ];
     }
 
@@ -27,7 +27,6 @@ class TasksFilter extends Tasks
      */
     public function scenarios()
     {
-        // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
 
@@ -41,8 +40,6 @@ class TasksFilter extends Tasks
     public function search($params)
     {
         $query = Tasks::find();
-
-        // add conditions that should always apply here
         $dataProvider = new ActiveDataProvider([
             'query' => $query->orderBy('status_id ASC, id DESC'),
             'pagination' => [
@@ -53,22 +50,14 @@ class TasksFilter extends Tasks
         $this->load($params);
 
         if (!$this->validate()) {
-            // uncomment the following line if you do not want to return any records when validation fails
-            // $query->where('0=1');
             return $dataProvider;
         }
 
-        // grid filtering conditions
-        $query->andFilterWhere([
-            'id' => $this->id,
-            'author_id' => $this->author_id,
-            'responsible_id' => $this->responsible_id,
-            'deadline' => $this->deadline,
-            'status_id' => $this->status_id,
-        ]);
+        $query->andFilterWhere(['=', 'MONTH(deadline)', $this->deadline]);
 
-        $query->andFilterWhere(['like', 'title', $this->title])
-            ->andFilterWhere(['like', 'text', $this->text]);
+        \Yii::$app->db->cache(function () use ($dataProvider){
+            return $dataProvider->prepare();
+        });
 
         return $dataProvider;
     }
