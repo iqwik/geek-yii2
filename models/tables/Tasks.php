@@ -107,4 +107,14 @@ class Tasks extends ActiveRecord
     {
         return $this->hasOne(Status::class, ['id' => 'status_id']);
     }
+
+    public function getTaskComments()
+    {
+        return $this->hasMany(TaskComments::class, ['task_id' => 'id']);
+    }
+
+    public function getTaskAttachments()
+    {
+        return $this->hasMany(TaskAttachments::class, ['task_id' => 'id']);
+    }
 }
