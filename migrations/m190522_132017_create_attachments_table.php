@@ -20,7 +20,7 @@ class m190522_132017_create_attachments_table extends Migration
             'content' => $this->string(),
             'task_id' => $this->integer(),
             'user_id' => $this->integer()
-        ]);
+        ], "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 
         $taskTable = \app\models\tables\Tasks::tableName();
         $userTable = \app\models\tables\Users::tableName();
@@ -39,7 +39,7 @@ class m190522_132017_create_attachments_table extends Migration
             'id' => $this->primaryKey(),
             'task_id' => $this->integer(),
             'filename' => $this->string(255)
-        ]);
+        ], "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 
         $this->createIndex('fk_'.$this->attachTable.'_task_idx', $this->attachTable, 'task_id');
         $this->addForeignKey(

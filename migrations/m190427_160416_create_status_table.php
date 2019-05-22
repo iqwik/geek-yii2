@@ -15,7 +15,7 @@ class m190427_160416_create_status_table extends Migration
         $this->createTable('{{%status}}', [
             'id' => $this->primaryKey(),
             'title' => $this->string(20)->notNull(),
-        ], "DEFAULT CHARSET=utf8mb4");
+        ], "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
     }
 
     /**
