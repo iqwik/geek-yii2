@@ -7,6 +7,10 @@ use yii\base\Model;
 use yii\imagine\Image;
 use app\models\tables\TaskAttachments;
 
+
+/**
+ * TaskAttachmentsAddForm is the model behind the attach file to form.
+ */
 class TaskAttachmentsAddForm extends Model
 {
     public $task_id;
@@ -32,8 +36,9 @@ class TaskAttachmentsAddForm extends Model
         if($this->validate()){
             $this->saveUploadedFile();
             $this->createThumb();
-            $this->saveData();
+            return $this->saveData();
         }
+        return false;
     }
 
     private function saveUploadedFile()

@@ -13,6 +13,7 @@ use app\models\tables\Users;
 use app\models\tables\Status;
 use app\models\tables\TaskComments;
 use app\models\TaskAttachmentsAddForm;
+use yii\web\UploadedFile;
 
 /**
  * TaskController implements the CRUD actions for Tasks model.
@@ -96,7 +97,15 @@ class TaskController extends Controller
 
     public function actionAddAttachment()
     {
-
+        $model = new TaskAttachmentsAddForm();
+        $model->load(Yii::$app->request->post());
+        $model->attachment = UploadedFile::getInstance($model, 'attachment');
+        if ($model->save()) {
+            Yii::$app->session->setFlash('success', "Файл загружен!");
+        } else {
+            Yii::$app->session->setFlash('error', "Не удалось загрузить Файл");
+        }
+        $this->redirect(Yii::$app->request->referrer);
     }
 
     protected function findModel($id)

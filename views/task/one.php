@@ -7,7 +7,8 @@ use yii\widgets\ActiveForm;
 /* @var $this yii\web\View */
 /* @var $model app\models\tables\Tasks */
 /* @var $taskCommentForm app\models\tables\TaskComments */
-/* @var $taskAttachmentForm app\models\TaskAttachmentsAddForm */
+/* @var $taskAttachmentForm \app\models\TaskAttachmentsAddForm */
+/* @var $user_id Yii::$web->user->id */
 
 $this->title = $model->title;
 $this->params['breadcrumbs'][] = ['label' => 'Задачи', 'url' => ['index']];
