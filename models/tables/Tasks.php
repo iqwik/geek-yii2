@@ -2,7 +2,6 @@
 
 namespace app\models\tables;
 
-use Yii;
 use yii\db\ActiveRecord;
 use yii\db\BaseActiveRecord;
 use yii\behaviors\TimestampBehavior;
@@ -20,6 +19,8 @@ use yii\behaviors\TimestampBehavior;
  *
  * @property Users $responsible
  * @property Users $author
+ * @property TaskComments $taskComments
+ * @property TaskAttachments $taskAttachments
  */
 class Tasks extends ActiveRecord
 {
@@ -106,5 +107,15 @@ class Tasks extends ActiveRecord
     public function getStatus()
     {
         return $this->hasOne(Status::class, ['id' => 'status_id']);
+    }
+
+    public function getTaskComments()
+    {
+        return $this->hasMany(TaskComments::class, ['task_id' => 'id']);
+    }
+
+    public function getTaskAttachments()
+    {
+        return $this->hasMany(TaskAttachments::class, ['task_id' => 'id']);
     }
 }

@@ -22,7 +22,7 @@ class m190424_192917_create_tasks_table extends Migration
             'date_create' => $this->dateTime(),
             'date_update' => $this->dateTime(),
             'status_id' => $this->integer(4)->defaultValue(1)
-        ], "DEFAULT CHARSET=utf8mb4");
+        ], "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
 
         $this->createIndex('fk_tasks_users_author_idx', '{{%tasks}}', 'author_id');
         $this->addForeignKey(

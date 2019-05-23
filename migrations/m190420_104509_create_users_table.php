@@ -19,7 +19,7 @@ class m190420_104509_create_users_table extends Migration
             'email' => $this->string(32)->notNull(),
             'authKey' => $this->string(32)->notNull(),
             'accessToken' => $this->string(32)->notNull()
-        ], "DEFAULT CHARSET=utf8mb4");
+        ], "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4");
     }
 
     /**
